@@ -1,101 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-:root {
-    --bg-color: #121212;
-    --container-color: #1e1e1e;
-    --primary-color: #ffffff;
-    --text-color: #e0e0e0;
-    --subtle-text-color: #8c8c8c;
-    --border-color: #3a3a3a;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --shift-block-color: #2a2a2a;
-    --input-bg-color: #2c2c2c;
-    --spacing-unit: 1rem;
-    --border-radius: 0.5rem;
-    --shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
+/* Atur font dasar dan latar belakang utama (gelap) */
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
     margin: 0;
-    padding: var(--spacing-unit);
+    padding: 20px;
+}
+
+/* Judul utama di tengah */
+.main-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+/* Wadah untuk menampung semua kartu aplikasi */
+.app-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px; /* Sedikit perlebar jarak */
+}
+
+/* Gaya dasar untuk setiap kartu aplikasi */
+.app-card {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 12px; /* Lebih bulat agar modern */
+    width: 300px;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Menggunakan flexbox */
+    flex-direction: column; /* Mengatur item secara vertikal */
+    overflow: hidden; /* Memastikan sudut tombol ikut membulat */
+}
+
+/* Konten di dalam kartu (judul dan paragraf) */
+.card-content {
+    padding: 25px;
+    flex-grow: 1; /* Membuat konten ini mengisi ruang yang tersedia */
+}
+
+.app-card:hover {
+    transform: translateY(-5px); /* Sedikit terangkat saat di-hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.app-card h2 {
+    margin-top: 0;
+    font-size: 1.3em;
+    color: #8ab4f8;
+    margin-bottom: 10px;
+}
+
+/* --- GAYA TOMBOL MODERN --- */
+.card-button {
+    background-color: #2a2a2a;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #8ab4f8;
+    transition: background-color 0.3s ease, color 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
+    gap: 8px; /* Jarak antara teks dan ikon */
 }
-.container {
-    background-color: var(--container-color);
-    width: 100%;
-    max-width: 500px;
-    padding: calc(var(--spacing-unit) * 1.75);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
+
+.app-card:hover .card-button {
+    background-color: #8ab4f8;
+    color: #121212;
 }
-h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: calc(var(--spacing-unit) * 1.5);
-    color: #ffffff;
+
+/* Gaya untuk kartu yang belum aktif */
+.app-card.disabled {
+    background-color: #2c2c2c;
+    color: #888;
+    cursor: not-allowed;
 }
-h2 {
-    font-size: 1.25rem;
-    margin-top: calc(var(--spacing-unit) * 2);
-    border-top: 1px solid var(--border-color);
-    padding-top: calc(var(--spacing-unit) * 1.5);
+
+.app-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
 }
-.add-shift-title, .shift-block h3 {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--subtle-text-color);
-    text-align: center;
-    margin-top: 1.5rem;
-    margin-bottom: -0.5rem;
+
+.app-card.disabled h2 {
+    color: #888;
 }
-.shift-block h3 {
-    text-align: left;
-    margin-bottom: 1.5rem;
-    color: #ffffff;
+
+.app-card.disabled .card-button {
+    background-color: #333;
+    color: #888;
 }
-.form-group { margin-bottom: var(--spacing-unit); }
-label { display: block; margin-bottom: calc(var(--spacing-unit) / 2); font-weight: 500; font-size: 0.9rem; color: var(--subtle-text-color); }
-input, select, textarea { width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: var(--border-radius); box-sizing: border-box; font-size: 1rem; font-family: inherit; background-color: var(--input-bg-color); color: var(--text-color); transition: border-color 0.2s, box-shadow 0.2s; }
-input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1); }
-textarea { resize: vertical; min-height: 150px; font-family: monospace; }
-button { width: 100%; padding: 0.8rem 1rem; border: none; border-radius: var(--border-radius); font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.1s, background-color 0.2s; margin-top: 0.5rem; }
-button:active { transform: translateY(1px); }
-.primary-button { background-color: var(--primary-color); color: var(--bg-color); }
-.secondary-button { background-color: #3a3a3a; color: var(--text-color); font-weight: 500; }
-.copy-button { background-color: var(--success-color); color: white; }
-.danger-button { background-color: var(--danger-color); color: white; }
-.shift-block { background-color: var(--shift-block-color); border: 1px solid var(--border-color); padding: calc(var(--spacing-unit) * 1.25); border-radius: var(--border-radius); margin-top: 1.5rem; position: relative; }
-.remove-shift-btn { position: absolute; top: 1rem; right: 1rem; width: auto; background-color: var(--danger-color); color: white; padding: 0.3rem 0.7rem; font-size: 0.8rem; font-weight: 500; }
-.button-group, .button-group-small { display: flex; gap: 10px; }
-.button-group-small { margin-top: -0.5rem; margin-bottom: 1rem; }
-.utility-button { flex-grow: 1; padding: 0.6rem; font-size: 0.85rem; background-color: #3a3a3a; color: var(--text-color); font-weight: 500; }
-.utility-button.danger { background-color: var(--danger-color); color: white; }
-hr { border: none; border-top: 1px solid var(--border-color); margin: 2rem 0; }
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-.modal-content { background-color: var(--container-color); padding: 1.5rem; border-radius: var(--border-radius); width: 90%; max-width: 600px; max-height: 80vh; display: flex; flex-direction: column; }
-.modal-content-small { background-color: var(--container-color); padding: 1.5rem; border-radius: var(--border-radius); width: 90%; max-width: 400px; }
-.modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
-.modal-header h2 { margin: 0; padding: 0; border: none; }
-.close-btn { background: none; border: none; font-size: 2rem; color: var(--subtle-text-color); cursor: pointer; line-height: 1; }
-.modal-body { flex-grow: 1; overflow-y: auto; display: flex; gap: 1.5rem; }
-#historyList { flex-basis: 50%; border-right: 1px solid var(--border-color); padding-right: 1.5rem; overflow-y: auto; }
-.history-detail { flex-basis: 50%; display: flex; flex-direction: column; }
-.history-item { padding: 0.8rem; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background-color 0.2s; }
-.history-item:hover, .history-item.active { background-color: var(--shift-block-color); }
-.history-item p { margin: 0; font-size: 0.9rem; }
-.history-item .date { font-weight: bold; color: var(--text-color); }
-.history-item .project { font-size: 0.8rem; color: var(--subtle-text-color); }
-#historyDetailText { flex-grow: 1; }
-.modal-footer { border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: flex-end; gap: 10px; }
-.modal-footer button { width: auto; }
-.hidden { display: none; }
