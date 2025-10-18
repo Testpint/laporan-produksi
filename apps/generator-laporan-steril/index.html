@@ -3,68 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Laporan Steril</title>
-
+    <title>Generator Laporan Steril - Aplikasi</title>
+    
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body onload="muatAplikasi()">
-
-    <div class="container">
-        <h1>📝 Generator Laporan Steril</h1>
-
-        <div class="form-group">
-            <label for="importLaporan">Tempel Laporan Lama untuk Diedit (Opsional)</label>
-            <textarea id="importLaporan" rows="7" placeholder="*Update Prj Steril : Cengkeh Tangkai*..."></textarea>
-            <button class="secondary-button" onclick="uraiLaporanDariTeks()">Baca & Isi Form dari Teks</button>
-        </div>
-        <hr>
-
-        <div class="form-group">
-            <label for="projectSelect">Project</label>
-            <select id="projectSelect" onchange="gantiProyek()"></select>
-        </div>
-        <div class="button-group-small">
-            <button class="utility-button" onclick="tampilkanModalTambahProyek()">Tambah Proyek Baru</button>
-            <button class="utility-button danger" onclick="hapusProyek()">Hapus Proyek Terpilih</button>
-        </div>
+    
+    <div class="app-page-container">
         
-        <div class="form-group">
-            <label for="tanggalLaporan">Tanggal Laporan</label>
-            <input type="date" id="tanggalLaporan">
+        <header class="app-header">
+            <a href="../../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Kembali ke Dashboard</a>
+            <h1 class="app-title"><i class="fas fa-flask"></i> Generator Laporan Steril</h1>
+            <p class="app-subtitle">Manajemen dan pembuatan laporan siklus steril berbasis proyek.</p>
+        </header>
+
+        <main class="app-main-content">
+            
+            <section class="input-form-card">
+                <h2>1. Data Proyek & Total Awal</h2>
+                
+                <div class="form-group large-input">
+                    <label for="importLaporan"><i class="fas fa-copy"></i> Tempel Laporan Lama untuk Diedit (Opsional)</label>
+                    <textarea id="importLaporan" rows="7" placeholder="*Update Prj Steril : Cengkeh Tangkai..."></textarea>
+                    <button class="secondary-button utility-full-width" onclick="uraiLaporanDariTeks()">
+                        <i class="fas fa-upload"></i> Baca & Isi Form dari Teks
+                    </button>
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="form-grid project-grid">
+                    <div class="form-group">
+                        <label for="projectInput"><i class="fas fa-box"></i> Project</label>
+                        
+                        <div class="input-toggle">
+                            <label for="toggleTemplateMode" class="toggle-label">Mode:</label>
+                            <input type="checkbox" id="toggleTemplateMode" onchange="toggleProjectMode()" class="toggle-checkbox">
+                            <label for="toggleTemplateMode" class="toggle-switch">
+                                <span class="toggle-slider"></span> <span class="toggle-text manual-text">Ketik Manual</span>
+                                <span class="toggle-text select-text">Pilih Template</span>
+                            </label>
+                        </div>
+
+                        <input type="text" 
+                               id="projectInputManual" 
+                               placeholder="Ketik nama proyek manual di sini..." 
+                               oninput="gantiProyek()">
+                        
+                        <select id="projectInputSelect" 
+                                class="hidden" 
+                                onchange="gantiProyek()">
+                            <option value="" disabled selected>-- Pilih Template Proyek --</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tanggalLaporan"><i class="fas fa-calendar-alt"></i> Tanggal Laporan</label>
+                        <input type="date" id="tanggalLaporan">
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="form-group">
+                    <label for="totalSebelumnya"><i class="fas fa-calculator"></i> Total Awal (Dari Laporan Lama / 0.00)</label>
+                    <input type="number" id="totalSebelumnya" step="0.01" placeholder="Total dari hari sebelumnya">
+                </div>
+
+                <div class="divider"></div>
+
+                <h3 class="section-title"><i class="fas fa-clock"></i> Data Shift Hari Ini</h3>
+                <div id="shift-container" class="shift-container-style">
+                    </div>
+
+                <div class="button-group">
+                    <button class="secondary-button" onclick="addShift()"><i class="fas fa-layer-group"></i> + Shift Detail</button>
+                    <button class="secondary-button" onclick="addShiftSimple()"><i class="fas fa-list-ul"></i> + Shift Total</button>
+                </div>
+            </section>
+            
+            <section class="output-preview-card">
+                <h2>2. Hasil & Riwayat Laporan</h2>
+
+                <div class="form-group large-input">
+                    <label for="hasilLaporan"><i class="fas fa-file-alt"></i> Hasil Laporan Final</label>
+                    <textarea id="hasilLaporan" readonly placeholder="Hasil laporan akan muncul di sini..."></textarea>
+                </div>
+
+                <div class="form-action-bar">
+                    <button class="primary-button" onclick="generateReport()">
+                        <i class="fas fa-cogs"></i> BUAT LAPORAN (GENERATE)
+                    </button>
+                    <button class="copy-button" onclick="copyReport()">
+                        <i class="fas fa-clipboard"></i> Salin Teks Laporan
+                    </button>
+                </div>
+
+                <div class="utility-bar">
+                    <button class="secondary-button utility-full-width" onclick="tampilkanRiwayat()">
+                        <i class="fas fa-history"></i> Lihat Riwayat Laporan
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="historyModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Riwayat Laporan</h2>
+                <button class="close-btn" onclick="tutupModal('historyModal')">&times;</button>
+            </div>
+            <div class="modal-body history-layout">
+                <div id="historyList" class="history-list"></div>
+                <div class="history-detail">
+                    <label for="historyDetailText">Detail Laporan Terpilih:</label>
+                    <textarea id="historyDetailText" readonly></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="danger-button" onclick="hapusRiwayat()">
+                    <i class="fas fa-trash-alt"></i> Hapus Semua Riwayat
+                </button>
+                <button class="secondary-button" onclick="tutupModal('historyModal')">Tutup</button>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="totalSebelumnya">Total Awal (Sebelum Shift Hari Ini)</label>
-            <input type="number" id="totalSebelumnya" step="0.01" placeholder="Total dari hari sebelumnya">
-        </div>
-
-        <hr>
-        <h3 class="add-shift-title">Data Shift Hari Ini</h3>
-        <div id="shift-container"></div>
-
-        <div class="button-group">
-            <button class="secondary-button" onclick="addShift()">+ Shift Detail</button>
-            <button class="secondary-button" onclick="addShiftSimple()">+ Shift Total</button>
-        </div>
-        
-        <button class="secondary-button" onclick="tampilkanRiwayat()">Lihat Riwayat</button>
-        <button class="primary-button" onclick="generateReport()">Buat Laporan</button>
-
-        <h2>Hasil Laporan Final</h2>
-        <textarea id="hasilLaporan" readonly placeholder="Hasil laporan akan muncul di sini..."></textarea>
-        <button class="copy-button" onclick="copyReport()">Salin Teks Laporan</button>
     </div>
     
-    <div id="historyModal" class="modal-overlay hidden">
-        <div class="modal-content"><div class="modal-header"><h2>Riwayat Laporan</h2><button class="close-btn" onclick="tutupModal('historyModal')">&times;</button></div><div class="modal-body"><div id="historyList"></div><div class="history-detail"><label for="historyDetailText">Detail Laporan Terpilih:</label><textarea id="historyDetailText" readonly></textarea></div></div><div class="modal-footer"><button class="danger-button" onclick="hapusRiwayat()">Hapus Semua Riwayat</button><button class="secondary-button" onclick="tutupModal('historyModal')">Tutup</button></div></div>
-    </div>
-    <div id="addProjectModal" class="modal-overlay hidden">
-        <div class="modal-content-small"><div class="modal-header"><h2>Tambah Proyek Baru</h2><button class="close-btn" onclick="tutupModal('addProjectModal')">&times;</button></div><div class="form-group"><label for="newProjectName">Nama Proyek Baru</label><input type="text" id="newProjectName" placeholder="Contoh: Steril Lada Hitam"></div><div class="modal-footer"><button class="primary-button" onclick="tambahProyek()">Simpan Proyek</button></div></div>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>
