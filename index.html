@@ -3,39 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard Aplikasi Laporan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1 class="main-title">Dashboard Aplikasi</h1>
-
-    <div class="app-container">
-
-        <a href="apps/generator-laporan-steril/index.html" class="app-card">
-            <div class="card-content">
-                <h2>Generator Laporan Steril</h2>
-                <p>Klik untuk pembuatan laporan.</p>
-            </div>
-            <span class="card-button">
-                Buka Aplikasi
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
-                </svg>
-            </span>
-        </a>
-
-        <a href="#" class="app-card disabled">
-            <div class="card-content">
-                <h2>Aplikasi Baru</h2>
-                <p>Aplikasi berikutnya akan tersedia di sini.</p>
-            </div>
-             <span class="card-button">
-                Segera Hadir
-            </span>
-        </a>
-
+    <div class="system-status-bar">
+        <span id="system-time">--:--:--</span>
+        <span class="separator">|</span>
+        <span id="system-date">-- -- ----</span>
+        <span class="separator">|</span>
+        <span class="status-indicator" id="system-health">
+            <i class="fas fa-check-circle"></i> SYSTEM ONLINE
+        </span>
     </div>
 
+    <h1 class="main-title">Dashboard Aplikasi</h1>
+
+    <div class="dashboard-wrapper">
+        
+        <div class="app-container">
+
+            <a href="apps/generator-laporan-steril/index.html" class="app-card">
+                <div class="card-content">
+                    <h2>Generator Laporan Steril</h2>
+                    <p>Klik untuk pembuatan laporan sterilisasi otomatis.</p>
+                </div>
+                <span class="card-button">
+                    Buka Aplikasi
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                </span>
+            </a>
+
+            <a href="#" class="app-card disabled">
+    <div class="card-content">
+        <h2>Aplikasi Baru</h2>
+        <p>Fitur baru yang akan datang.</p>
+    </div>
+     <span class="card-button">
+        Segera Hadir
+    </span>
+</a>
+            
+        </div>
+        
+        <div class="activity-feed-panel">
+            <h2><i class="fas fa-stream"></i> Activity Feed</h2>
+            <ul id="activity-log">
+                <li class="log-item initial">System Initialized (12/10 10:00:00)</li>
+            </ul>
+            <div class="status-summary">
+                Total Aplikasi Aktif: <span class="count">1</span>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="app-footer">
+        <span class="version-info">VERSION: 2.0.0 (Build 202510)</span> 
+    </footer>
+    
+    <script src="js/script.js"></script> 
 </body>
 </html>
